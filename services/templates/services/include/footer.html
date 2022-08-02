@@ -1,0 +1,33 @@
+{% load static %}
+{% load tags %}
+
+<footer class="footer">
+	<div class="footer__top">
+		<div class="container">
+			<div class="footer__top-inner flex">
+				<div class="logo">
+					<a class="logo__link" href="/">
+						<img class="logo__image" src="{% static 'img/logo.png' %}" alt="">
+					</a>
+					<p class="tagline">Буровые и свайные работы</p>
+				</div>
+				{% include 'services/include/menu.html' %}
+				{% get_social %}
+				<div class="contacts">
+					{% get_phone %}
+					<p class="contacts__whours">Работаем без выходных <br>с 09:00 до 18:00</p>
+				</div>
+				<a class="callback btn btn_yellow" href="#callback"><span>Заказать звонок</span></a>
+			</div>
+		</div>
+	</div>
+	<div class="footer__bottom">
+		<div class="container">
+			<div class="footer__bottom-inner flex jcsb">
+				<div class="copyright">© 2021, ООО «СпецТехноАльянс»</div>
+				<a class="footer__link" href="{% url 'privacy' %}">Политика конфиденциальности</a>
+				<div class="developer">Разработка: AgentFox</div>
+			</div>
+		</div>
+	</div>
+</footer>

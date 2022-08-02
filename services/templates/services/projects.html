@@ -1,0 +1,44 @@
+{% extends 'services/base.html' %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+
+<div class="portfolio" id="portfolio">
+	<div class="container">
+		<h2 class="portfolio__header">Буровые и земляные работы СпецТехноАльянс</h2>
+		<div class="portfolio-items">
+			{% for project in project_list %}
+			<div class="portfolio__item" id="project-{{ project.id }}">
+				<div class="portfolio__item-inner shadow">
+					<div class="portfolio__item-image-part swiper-container">
+						<div class="swiper-wrapper">
+							{% for image in project.images.all %}
+							<a class="portfolio__item-link swiper-slide" href="{{ image.image.url }}">
+								<img class="portfolio__item-image" src="{{ image.image.url }}" alt="">
+							</a>
+							{% endfor %}
+						</div>
+						<div class="portfolio-buttons">
+							<div class="swiper-button-prev portfolio-button-prev"></div>
+							<div class="swiper-button-next portfolio-button-next"></div>
+						</div>
+						<div class="swiper-pagination portfolio-pagination"></div>
+					</div>
+					<div class="portfolio__item-text-part">
+						<div class="portfolio__item-header">{{ project.title|safe }}</div>
+						<div class="portfolio__item-text">{{ project.description|safe }}</div>
+						<ul>
+							{% for property in project.properties.all %}
+							<li><strong>{{ property.title|safe }}</strong>: {{ property.value|safe }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,56 @@
+{% load static %}
+{% load tags %}
+
+<header class="header">
+	<div class="container">
+		<div class="header__inner flex">
+			<div class="logo">
+				<a class="logo__link" href="/"><img class="logo__image" src="{% static 'img/logo.png' %}" alt=""></a>
+				<p class="tagline">Буровые и свайные работы</p>
+			</div>
+			{% include 'services/include/menu.html' %}
+			<div class="contacts">
+				{% get_phone %}
+				<p class="contacts__whours">с 09:00 до 18:00</p>
+			</div>
+			<a class="callback btn btn_yellow" href="#callback"><span>Заказать звонок</span></a>
+			<div class="menu-toggle"><i class="icon-toggle"><span></span><span></span><span></span></i></div>
+		</div>
+	</div>
+	{% if request.path == "/" %}
+	<div class="intro" id="intro">
+		<div class="container">
+			<h1 class="intro__header">Работы нулевого <br>цикла строительства</h1>
+			<ul class="intro__list">
+				<li class="intro__list-item">Буровые работы</li>
+				<li class="intro__list-item">Свайные работы</li>
+				<li class="intro__list-item">Ограждение котлованов</li>
+				<li class="intro__list-item">Инженерно-геологические изыскания</li>
+			</ul><a class="intro__button btn btn_yellow" href="#callback"><span>Оставить заявку</span></a>
+			<div class="intro__video">
+				<div class="intro__video-inner paused">
+					<video src="{% static 'video.mp4' %}" poster="{% static 'img/poster2.jpg' %}"></video>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+</header>
+
+{% if request.path != "/" %}
+<div class="breadcrumbs">
+	<div class="container">
+		<ul class="breadcrumbs-items">
+			<li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{% url 'home' %}">Главная</a></li>
+			{% if request.resolver_match.url_name == 'service_detail' %}
+			<li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{% url 'services' %}">Услуги</a></li>
+			<li class="breadcrumbs__item">{{ service.title }}</li>
+			{% elif request.resolver_match.url_name == 'services' %}
+			<li class="breadcrumbs__item">Услуги</li>
+			{% else %}
+			<li class="breadcrumbs__item">{{ title }}</li>
+			{% endif %}
+		</ul>
+	</div>
+</div>
+{% endif %}

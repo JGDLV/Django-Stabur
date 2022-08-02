@@ -1,0 +1,25 @@
+<div class="menu">
+	<ul class="menu-items flex">
+		<li  class="menu__item {% if request.resolver_match.route == '' %}current-menu-item{% endif %}">
+			<a class="menu__link" href="{% url 'home' %}">Главная</a>
+		</li>
+		<li class="menu__item {% if 'uslugi' in request.resolver_match.route %}current-menu-item{% endif %}">
+			<a class="menu__link" href="{% url 'services' %}">Услуги</a>
+		</li>
+		<li class="menu__item {% if 'o-kompanii' in request.resolver_match.route %}current-menu-item{% endif %}">
+			<a class="menu__link" href="{% url 'about' %}">О компании</a>
+		</li>
+		<li class="menu__item {% if 'proekty' in request.resolver_match.route %}current-menu-item{% endif %}">
+			<a class="menu__link" href="{% url 'projects' %}">Проекты</a>
+		</li>
+		<li class="menu__item {% if 'tehnika' in request.resolver_match.route %}current-menu-item{% endif %}">
+			<a class="menu__link" href="{% url 'equipment' %}">Техника</a>
+		</li>
+		<li class="menu__item {% if 'kontakty' in request.resolver_match.route %}current-menu-item{% endif %}">
+			<a class="menu__link" href="{% url 'contacts' %}">Контакты</a>
+		</li>
+		<!-- <li class="menu__item {% if request.resolver_match.url_name == 'contacts' %}current-menu-item{% endif %}">
+			<a class="menu__link" href="{% url 'contacts' %}">Контакты</a>
+		</li> -->
+	</ul>
+</div>

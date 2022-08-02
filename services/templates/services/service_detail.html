@@ -1,0 +1,151 @@
+{% extends 'services/base.html' %}
+{% load static %}
+{% load forms %}
+
+{% block title %}{{ service.title }}{% endblock title %}
+
+{% block content %}
+
+<div class="service-intro">
+	<div class="container">
+		<div class="service-intro__inner">
+			<div class="services__item-text-part">
+				{% if service.title_full %}
+				<h1>{{ service.title_full|safe }}</h1>
+				{% else %}
+				<h1>{{ service.title|safe }}</h1>
+				{% endif %}
+				{% if service.description_full %}
+				{{ service.description_full|safe }}
+				{% else %}
+				<p>{{ service.description|safe }}</p>
+				{% endif %}
+				<a class="services__item-button btn btn_yellow goto" href="#order"><span>Заказать</span></a>
+			</div>
+			<div class="service-intro__image-part">
+				<img src="{{ service.image_detail.url }}" alt="{{ service.title }}" class="service-intro__image">
+			</div>
+		</div>
+	</div>
+</div>
+
+{% if service.types.all %}
+<div class="service-types">
+	<div class="container">
+		<h2 class="service-types__header">{{ service.types_header|safe }}</h2>
+		<p class="service-types__text">{{ service.types_text|safe }}</p>
+		<div class="service-types-items">
+			{% for item in service.types.all %}
+			<div class="service-types__item">
+				<div class="service-types__item-inner shadow">
+					<div class="service-types__item-image-part">
+						<img src="{{ item.image.url }}" alt="{{ item.title }}" class="service-types__item-image">
+					</div>
+					<div class="service-types__item-text-part">
+						<h3>{{ item.title }}</h3>
+						{{ item.description|safe }}
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endif %}
+
+{% if service.scheme %}
+<div class="service-scheme">
+	<div class="container">
+		<h2 class="service-scheme__header">{{ service.scheme.header|safe }}</h2>
+		<p class="service-scheme__text">{{ service.scheme.text_top|safe }}</p>
+		<div class="service-scheme-items">
+			{% for item in service.scheme.items.all %}
+			<div class="service-scheme__item">
+				<h3>{{ item.title|safe }}</h3>
+				<p>{{ item.value|safe }}</p>
+			</div>
+			{% endfor %}
+		</div>
+		{{ service.scheme.text_bottom|safe }}
+	</div>
+</div>
+{% endif %}
+
+{% if service.projects.all %}
+<div class="service-portfolio portfolio">
+	<div class="container">
+		<h2 class="service-portfolio__header">{{ service.projects_header|safe }}</h2>
+		<p class="service-portfolio__text">{{ service.projects_text|safe }}</p>
+		<div class="portfolio-items">
+			{% for project in service.projects.all %}
+			<div class="portfolio__item" id="project-{{ project.id }}">
+				<div class="portfolio__item-inner shadow">
+					<div class="portfolio__item-image-part swiper-container">
+						<div class="swiper-wrapper">
+							{% for image in project.images.all %}
+							<a class="portfolio__item-link swiper-slide" href="{{ image.image.url }}">
+								<img class="portfolio__item-image" src="{{ image.image.url }}" alt="">
+							</a>
+							{% endfor %}
+						</div>
+						<div class="portfolio-buttons">
+							<div class="swiper-button-prev portfolio-button-prev"></div>
+							<div class="swiper-button-next portfolio-button-next"></div>
+						</div>
+						<div class="swiper-pagination portfolio-pagination"></div>
+					</div>
+					<div class="portfolio__item-text-part">
+						<div class="portfolio__item-header">{{ project.title|safe }}</div>
+						<div class="portfolio__item-text">{{ project.description|safe }}</div>
+						<ul>
+							{% for property in project.properties.all %}
+							<li><strong>{{ property.title|safe }}</strong>: {{ property.value|safe }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endif %}
+
+{% if service.equipment.all %}
+<div class="service-equipment">
+	<div class="container">
+		<h2 class="service-equipment__header">{{ service.equipment_header|safe }}</h2>
+		<p class="service-equipment__text">{{ service.equipment_text|safe }}</p>
+		<div class="equipment-items">
+			{% for item in service.equipment.all %}
+			<div class="equipment__item">
+				<div class="equipment__item-inner shadow flex">
+					<div class="equipment__item-image-part">
+						<img class="equipment__item-image" src="{{ item.image.url }}" alt="">
+					</div>
+					<div class="equipment__item-text-part">
+						<div class="equipment__item-name">{{ item.title|safe }}</div>
+						<ul>
+							{% for property in item.properties.all %}
+							<li><strong>{{ property.title|safe }}</strong>: {{ property.value|safe }}</li>
+							{% endfor %}
+						</ul>
+						<div class="equipment__item-bottom flex">
+							<div class="equipment__item-prices">
+								<div class="equipment__item-prices-text">от</div>
+								<div class="equipment__item-price"><span>{{ item.price|safe }}</span> ₽/{{ item.price_type|safe }}</div>
+							</div>
+							<a class="equipment__item-button btn btn_yellow" href="#order_equipment" data-name="{{ item.title }}"><span>Заказать</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endif %}
+
+{% get_order_service %}
+
+{% endblock content %}

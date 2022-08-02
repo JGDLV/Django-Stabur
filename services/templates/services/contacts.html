@@ -1,0 +1,64 @@
+{% extends 'services/base.html' %}
+{% load static %}
+{% load tags %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+
+<div class="requisites" id="requisites">
+	<div class="container">
+		<h2 class="requisites__header">Контакты и реквизиты</h2>
+		<div class="requisites__inner">
+			<div class="requisites__top">
+				<p><strong>Директор:</strong> {{ contacts.ceo }}</p>
+				<p><strong>Полное наименование организации:</strong> {{ contacts.full_name }}</p>
+			</div>
+			<div class="requisites__left">{{ contacts.left|safe }}</div>
+			<div class="requisites__right">{{ contacts.right|safe }}</div>
+			<div class="requisites__bottom">
+				<p><strong>E-mail:</strong> <a href="mailto:{{ contacts.email }}">{{ contacts.email }}</a></p>
+				<p><strong>Номер тел./факс:</strong> {% get_phone %}</p>
+				<p><strong>Юридический и&nbsp;почтовый адрес:</strong> {{ contacts.address }}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="order" id="order">
+	<div class="container">
+		<div class="order__inner flex">
+			<div class="order__left">
+				<h2 class="order__header">Задать вопрос</h2>
+				<form method="post" action="{% url 'contact_form_send' %}" class="order-form flex jcsb">
+					{% csrf_token %}
+					<label class="order-form__label order-form__label-name">
+						<div class="order-form__label-text">Ваше имя</div>
+						{{ form.name }}
+					</label>
+					<label class="order-form__label order-form__label-phone">
+						<div class="order-form__label-text">Ваш номер телефона</div>
+						{{ form.phone }}
+					</label>
+					<label class="order-form__label order-form__label-comment">
+						<div class="order-form__label-text">Ваше сообщение</div>
+						{{ form.comment }}
+					</label>
+					<button class="order-form__button btn btn_yellow" type="submit"><span>Отправить
+							сообщение</span></button>
+					<label class="order-form__label order-form__label-privacy">
+						<input type="checkbox" required>Принимаю условия обработки моих данных в соответствии с <a
+							href="{% url 'privacy' %}">политикой обработки данных</a>
+					</label>
+				</form>
+			</div>
+			<div class="order__right order__right_contacts">
+				<div class="map">
+					<script type="text/javascript" charset="utf-8" async
+						src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A4b24180aaf51dcc62906c93e66945258566003a0ca2e234b7fb31f7d871f4320&amp;width=100%&amp;height=100%&amp;lang=ru_RU&amp;scroll=false"></script>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

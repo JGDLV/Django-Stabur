@@ -1,0 +1,32 @@
+{% load static %}
+
+<div class="docs" id="docs">
+	<div class="container">
+		<div class="docs__inner flex">
+			<div class="docs__left">
+				<h2 class="docs__header">Мы имеем необходимые допуски СРО <br>на все виды выполняемых работ</h2>
+				{% if request.path == "/" %}
+				<a class="docs__button btn btn_blue" href="{% url 'about' %}"><span>Узнать больше о компании →</span></a>
+				{% endif %}
+			</div>
+			<div class="docs__right">
+				<div class="swiper-container">
+					<div class="docs-items swiper-wrapper">
+						{% for document in documents %}
+						<div class="docs__item swiper-slide">
+							<a class="docs__item-image-part" href="{{ document.image.url }}">
+								<img class="docs__item-image" src="{{ document.image.url }}" alt="">
+							</a>
+							<div class="docs__item-text-part">{{ document.title|safe }}</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="docs-buttons">
+					<div class="swiper-button-prev docs-button-prev"></div>
+					<div class="swiper-button-next docs-button-next"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

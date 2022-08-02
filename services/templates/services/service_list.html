@@ -1,0 +1,31 @@
+{% extends 'services/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+
+<div class="services" id="services">
+	<div class="container">
+		<h2 class="services__header">Наши услуги</h2>
+		<div class="services-items">
+			{% for service in service_list %}
+			<div class="services__item">
+				<div class="services__item-inner shadow">
+					<div class="services__item-text-part">
+						<p class="services__item-header">{{ service.title|safe }}</p>
+						{{ service.description_full|safe }}
+						<!-- <a class="services__item-button btn btn_yellow" href="{% url 'service_detail' service.slug %}"><span>Подробнее</span></a> -->
+						<a class="services__item-button btn btn_yellow" href="{{ service.get_absolute_url }}"><span>Подробнее</span></a>
+					</div>
+					<div class="services__item-image-part">
+						<img class="services__item-image" src="{{ service.image_preview.url }}" alt="{{ service.title }}">
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

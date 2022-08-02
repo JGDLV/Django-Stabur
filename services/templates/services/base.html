@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}{% endblock title %}</title>
+	<meta name="description" content="Главная страница">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="{% static 'img/favicon.ico' %}">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&amp;display=swap">
+	<link rel="stylesheet" href="{% static 'css/libs.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body {% if request.path != "/" %} class="inner" {% endif %}>
+	{% include 'services/include/header.html' %}
+	<main class="content">
+		{% block content %}
+		{% endblock content %}
+	</main>
+	{% include 'services/include/footer.html' %}
+	{% include 'services/include/modals.html' %}
+	<div class="fas fa-arrow-up" id="top"></div>
+	<script src="{% static 'js/libs.min.js' %}"></script>
+	<script src="{% static 'js/scripts.js' %}"></script>
+</body>
+
+</html>

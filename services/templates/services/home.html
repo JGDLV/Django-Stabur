@@ -1,0 +1,176 @@
+{% extends 'services/base.html' %}
+{% load static %}
+{% load forms %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+
+<div class="services" id="services">
+	<div class="container">
+		<h2 class="services__header">Наши услуги</h2>
+		<div class="services-buttons">
+			<div class="swiper-button-prev services-button-prev"></div>
+			<div class="swiper-button-next services-button-next"></div>
+		</div>
+	</div>
+	<div class="swiper-container">
+		<div class="services-items swiper-wrapper">
+			{% for service in services %}
+			<div class="services__item swiper-slide">
+				<div class="services__item-image-part">
+					<img class="services__item-image" src="{{ service.image_preview.url }}" alt="">
+					<div class="services__item-hidden">
+						<div class="services__item-text">{{ service.description|safe }}</div>
+						<a class="services__item-button btn btn_white" href="{{ service.get_absolute_url }}"><span>Подробнее</span></a>
+					</div>
+				</div><a class="services__item-text-part" href="{{ service.get_absolute_url }}">{{ service.title|safe }}</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="container">
+		<div class="swiper-scrollbar services-scrollbar"></div>
+	</div>
+</div>
+<div class="equipment" id="equipment">
+	<div class="container">
+		<h2 class="equipment__header">Наша техника</h2>
+		<div class="equipment__text">Наша компания является собственником буровой техники. Мы гарантируем ее исправность и отсутствие проблем в процессе эксплуатации. Вся техника соответствует техническим регламентам и имеет регистрацию в контролирующих органах</div>
+	</div>
+	<div class="swiper-container">
+		<div class="equipment-items swiper-wrapper">
+			{% for item in equipment %}
+			<div class="equipment__item swiper-slide">
+				<div class="equipment__item-inner shadow flex">
+					<div class="equipment__item-image-part">
+						<img class="equipment__item-image" src="{{ item.image.url }}" alt="">
+					</div>
+					<div class="equipment__item-text-part">
+						<div class="equipment__item-name">{{ item.title|safe }}</div>
+						<ul>
+							{% for property in item.properties.all %}
+							<li><strong>{{ property.title|safe }}</strong>: {{ property.value|safe }}</li>
+							{% endfor %}
+						</ul>
+						<div class="equipment__item-bottom flex">
+							<div class="equipment__item-prices">
+								<div class="equipment__item-prices-text">от</div>
+								<div class="equipment__item-price"><span>{{ item.price|safe }}</span> ₽/{{ item.price_type|safe }}</div>
+							</div>
+							<a class="equipment__item-button btn btn_yellow" href="#order_equipment" data-name="{{ item.title }}"><span>Заказать</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="equipment-buttons">
+			<div class="swiper-button-prev equipment-button-prev"></div>
+			<div class="swiper-button-next equipment-button-next"></div>
+		</div>
+	</div>
+	<div class="swiper-pagination equipment-pagination"></div>
+</div>
+<div class="about" id="about">
+	<div class="container">
+		<h2 class="about__header">Компания СпецТехноАльянс</h2>
+		<div class="about__text">Наша компания располагает современной буровой техникой, имеет штат профессиональных специалистов с большим стажем и опытом работы. Машины и оборудование соответствует требованиям Технических регламентов и зарегистрированы в контролирующих органах.</div>
+		<div class="about__inner flex">
+			<div class="about__left"><img class="about__image" src="{% static 'img/about-image.png' %}" alt=""></div>
+			<div class="about__right">
+				<div class="about__text_2"><strong>Компания работает на строительном рынке с 2015 года.</strong> За это время накоплен значительный опыт в строительной отрасли.</div>
+				<div class="about-items flex">
+					<div class="about__item flex">
+						<div class="about__item-image-part">
+							<img class="about__item-image" src="{% static 'img/svg/about-06.svg' %}" alt="">
+							<!-- <svg class="about__item-image">
+								<use xlink:href="{% static 'img/svg/about-06.svg' %}"></use>
+							</svg> -->
+						</div>
+						<div class="about__item-text-part">Доступные цены</div>
+					</div>
+					<div class="about__item flex">
+						<div class="about__item-image-part">
+							<img class="about__item-image" src="{% static 'img/svg/about-02.svg' %}" alt="">
+							<!-- <svg class="about__item-image">
+								<use xlink:href="{% static 'img/sprite.svg#about-02' %}"></use>
+							</svg> -->
+						</div>
+						<div class="about__item-text-part">Более 300 объектов</div>
+					</div>
+					<div class="about__item flex">
+						<div class="about__item-image-part">
+							<img class="about__item-image" src="{% static 'img/svg/about-03.svg' %}" alt="">
+							<!-- <svg class="about__item-image">
+								<use xlink:href="{% static 'img/sprite.svg#about-03' %}"></use>
+							</svg> -->
+						</div>
+						<div class="about__item-text-part">Гарантированный результат</div>
+					</div>
+					<div class="about__item flex">
+						<div class="about__item-image-part">
+							<img class="about__item-image" src="{% static 'img/svg/about-04.svg' %}" alt="">
+							<!-- <svg class="about__item-image">
+								<use xlink:href="{% static 'img/sprite.svg#about-04' %}"></use>
+							</svg> -->
+						</div>
+						<div class="about__item-text-part">Сжатые сроки</div>
+					</div>
+					<div class="about__item flex">
+						<div class="about__item-image-part">
+							<img class="about__item-image" src="{% static 'img/svg/about-05.svg' %}" alt="">
+							<!-- <svg class="about__item-image">
+								<use xlink:href="{% static 'img/sprite.svg#about-05' %}"></use>
+							</svg> -->
+						</div>
+						<div class="about__item-text-part">Высокая квалификация</div>
+					</div>
+					<div class="about__item flex">
+						<div class="about__item-image-part">
+							<img class="about__item-image" src="{% static 'img/svg/about-01.svg' %}" alt="">
+							<!-- <svg class="about__item-image">
+								<use xlink:href="{% static 'img/sprite.svg#about-01' %}"></use>
+							</svg> -->
+						</div>
+						<div class="about__item-text-part">Многолетний опыт</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% include 'services/include/docs.html' %}
+
+<div class="portfolio" id="portfolio">
+	<div class="container">
+		<h2 class="portfolio__header">Выполненные проекты <br>компании СпецТехноАльянс</h2>
+		<div class="portfolio-items flex">
+			{% for project in projects %}
+			<div class="portfolio__item">
+				<div class="portfolio__item-image-part">
+					{% with project.images.all|first as image %}
+					<img class="portfolio__item-image" src="{{ image.image.url }}" alt="">
+					{% endwith %}
+					<div class="portfolio__item-hidden">
+						<div class="portfolio__item-hidden-inner">
+							<h3 class="portfolio__item-hidden-header">{{ project.description|safe }}</h3>
+							<ul>
+								{% for property in project.properties.all %}
+								<li><strong>{{ property.title|safe }}:</strong> {{ property.value|safe }}</li>
+								{% endfor %}
+							</ul>
+						</div><a class="portfolio__item-button btn btn_white" href="{% url 'projects' %}#project-{{ project.id }}"><span>Подробнее</span></a>
+					</div>
+				</div><a class="portfolio__item-text-part" href="{% url 'projects' %}#project-{{ project.id }}">{{ project.title|safe }}</a>
+			</div>
+			{% endfor %}
+			<a class="portfolio__button btn btn_grey" href="{% url 'projects' %}"><span>Смотреть ещё проекты →</span></a>
+		</div>
+	</div>
+</div>
+
+{% get_order %}
+
+{% endblock content %}

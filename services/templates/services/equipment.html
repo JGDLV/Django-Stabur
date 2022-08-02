@@ -1,0 +1,46 @@
+{% extends 'services/base.html' %}
+{% load tags %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+
+<div class="equipment" id="equipment">
+	<div class="container">
+		<h2 class="equipment__header">Буровая техника</h2>
+		<div class="equipment__subheader subheader">Буровые установки в аренду в Калуге</div>
+		<div class="equipment__text">
+			<p>В нашей компании имеется вся необходимая техника для выполнения работ нулевого цикла строительства и инженерных изысканий. Мы предоставляем в пользование строительную технику, как юридическим, так и частным лицам. Вся техника предоставляется в аренду только со своим оператором или бригадой.</p>
+			<p>Итоговая стоимость аренды будет зависеть от сложности, объема работ и удаленности объекта производства работ.</p>
+			<p>Уточняйте стоимость аренды по телефону {% get_phone %}</p>
+		</div>
+		<div class="equipment-items">
+			{% for item in equipment_list %}
+			<div class="equipment__item">
+				<div class="equipment__item-inner shadow flex">
+					<div class="equipment__item-image-part">
+						<img class="equipment__item-image" src="{{ item.image.url }}" alt="">
+					</div>
+					<div class="equipment__item-text-part">
+						<div class="equipment__item-name">{{ item.title|safe }}</div>
+						<ul>
+							{% for property in item.properties.all %}
+							<li><strong>{{ property.title|safe }}</strong>: {{ property.value|safe }}</li>
+							{% endfor %}
+						</ul>
+						<div class="equipment__item-bottom flex">
+							<div class="equipment__item-prices">
+								<div class="equipment__item-prices-text">от</div>
+								<div class="equipment__item-price"><span>{{ item.price|safe }}</span> ₽/{{ item.price_type|safe }}</div>
+							</div>
+							<a class="equipment__item-button btn btn_yellow" href="#order_equipment" data-name="{{ item.title }}"><span>Заказать</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

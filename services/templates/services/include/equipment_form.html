@@ -1,0 +1,35 @@
+<div class="modal modal_equipment mfp-hide" id="order_equipment">
+	<div class="modal__header">Заказ спецтехники</div>
+	<form method="post" class="order-form flex jcsb" action="{% url 'equipment_form_send' %}">
+		{% csrf_token %}
+		<input type="hidden" name="equipment">
+		<label class="order-form__label order-form__label-name">
+			<div class="order-form__label-text">Ваше имя</div>
+			{{ form.name }}
+		</label>
+		<label class="order-form__label order-form__label-phone">
+			<div class="order-form__label-text">Ваш номер телефона</div>
+			{{ form.phone }}
+		</label>
+		<label class="order-form__label order-form__label-address">
+			<div class="order-form__label-text">Укажите адрес объекта</div>
+			{{ form.address }}
+		</label>
+		<label class="order-form__label order-form__label-date">
+			<div class="order-form__label-text">Дата</div>
+			{{ form.date }}
+		</label>
+		<label class="order-form__label order-form__label-time">
+			<div class="order-form__label-text">Время аренды</div>
+			{{ form.time }}
+		</label>
+		<label class="order-form__label order-form__label-comment">
+			<div class="order-form__label-text">Комментарии к заявке</div>
+			{{ form.comment }}
+		</label>
+		<button class="order-form__button btn btn_yellow" type="submit"><span>Отправить заявку</span></button>
+		<label class="order-form__label order-form__label-privacy">
+			<input type="checkbox" required>Принимаю условия обработки моих данных в соответствии с <a href="{% url 'privacy' %}">политикой обработки данных</a>
+		</label>
+	</form>
+</div>
